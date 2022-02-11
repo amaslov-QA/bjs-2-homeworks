@@ -3,8 +3,8 @@
 // Задание 1
 function getArrayParams(arr) {
   let min, max, sum, avg;
-  min = -100;
-  max =  100;
+  min = Infinity;
+  max = -Infinity;
   sum = 0;
   avg = 0;
 
@@ -18,7 +18,7 @@ function getArrayParams(arr) {
     sum += arr[i];
   }
   avg = parseFloat((sum / arr.length).toFixed(2));
-  getArrayParams(min,max,avg);
+  return(min,max,avg);
 }
 
 
@@ -44,6 +44,7 @@ function makeWork(arrOfArr, func) {
 }
 
 // Задание 3
-let arrParams = getArrayParams(arr);
-
-return arrParams.max - arrParams.min;
+function worker2(arr) {
+  let arrParams = getArrayParams(arr);
+  return arrParams.max - arrParams.min;
+}
