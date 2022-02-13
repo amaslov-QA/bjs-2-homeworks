@@ -18,7 +18,7 @@ function getArrayParams(arr) {
     sum += arr[i];
   }
   avg = parseFloat((sum / arr.length).toFixed(2));
-  return(min,max,avg);
+  return{min,max,avg};
 }
 
 
