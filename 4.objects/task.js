@@ -13,16 +13,17 @@ Student.prototype.setSubject = function (subjectName) {
 
 Student.prototype.addMark = function (mark) {
   if (this.marks === undefined) {
-    this.marks = [...marks];
+    this.marks = [mark];
   } else {
-    this.marks.push(...marks)
+    this.marks.push(mark);
   }
 }
 
 Student.prototype.addMarks = function (...marks) {
-  this.marks = [];
-  for (let mark of marks) {
-    this.marks.push(mark)
+  if (this.marks === undefined) {
+    this.marks = [...marks];
+  } else {
+    this.marks.push(...marks)
   }
 }
 
