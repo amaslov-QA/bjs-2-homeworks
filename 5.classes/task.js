@@ -4,7 +4,7 @@ class PrintEditionItem {
     this.name = name;
     this.releaseDate = releaseDate;
     this.pageCount = pageCount;
-    this.state = 100;
+    this._state = 100;
     this.type = null;
   }
   fix() {
@@ -12,15 +12,15 @@ class PrintEditionItem {
   }
   set state(newState) {
     if (newState < 0) {
-      this.state = 0;
+      this._state = 0;
     } else if (newState > 100) {
-      this.state = 100;
+      this._state = 100;
     } else {
-      this.state = newState;
+      this._state = newState;
     }
   }
   get state() {
-    return this.state
+    return this._state
   }
 }
 class Magazine extends PrintEditionItem {
@@ -64,30 +64,32 @@ class Library {
     this.books = [];
 
   }
-}
-addBook(books) {
-  if (books.state > 30) {
-    this.books.push(books);
-  }
-}
 
-findBookBy(type, value) {
-  let result = this.books.find(Element => Element[type] === value);
-  if (result === undefined) {
-    return null;
-  } else {
-    return result;
+  addBook(books) {
+    if (books.state > 30) {
+      this.books.push(books);
+    }
   }
-}
 
-giveBookByName(bookName) {
-  let result = this.books.find(Element => Element.name === bookName);
-  if (result === undefined) {
-    return null;
-  } else {
-    this.books = this.books.filter(Element => Element.name !== bookName);
-    return result;
+  findBookBy(type, value) {
+    let result = this.books.find(element => element[type] === value);
+    if (result === undefined) {
+      return null;
+    } else {
+      return result;
+    }
   }
+
+  giveBookByName(bookName) {
+    let result = this.books.find(element => element.name === bookName);
+    if (result === undefined) {
+      return null;
+    } else {
+      this.books = this.books.filter(element => element.name !== bookName);
+      return result;
+    }
+  }
+
 }
 
 
@@ -105,30 +107,32 @@ class Student {
     if (isNaN(mark) === true || mark <= 0 || mark > 5) {
       return "Ошибка, оценка должна быть числом от 1 до 5";
     } else {
-      this.subject = subject;
-      this.list.push(mark);
-      if (this.marks === undefined) {
-        this.marks = [mark];
+      if (this.list[subject] === undefined) {
+        this.list[subject] = [mark];
       } else {
-        this.marks.push(mark);
+        this.list[subject].push(mark);
       }
-      return this.subject, this.marks;
     }
   }
 
   getAverageBySubject(subject) {
-    if (this.marks === undefined || this.marks === []) {
-      return "Нет оценок";
-    } else if (subject !== this.subject) {
+    if (this.list[subject] === undefined) {
       return "Несуществующий предмет";
+    } else if (this.list[subject].length === 0) {
+      return "Нет оценок";
     } else {
-      const sum = this.marks.reduce((acc, number) => acc + number);
-      return (sum / this.marks.length);
+      const sum = this.list[subject].reduce((acc, number) => acc + number);
+      return (sum / this.list[subject].length);
     }
   }
 
   getAverage() {
-    const sum = this.list.reduce((acc, number) => acc + number);
-    return (sum / this.list.length);
+    let sum = 0;
+    let lengthSum = 0;
+    for (let subject in this.list) {
+      sum += this.list[subject].reduce((acc, item) => acc + item);
+      lengthSum += this.list[subject].length;
+    }
+    return sum / lengthSum;
   }
 }
