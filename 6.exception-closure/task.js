@@ -49,7 +49,7 @@ function getTriangle(a, b, c) {
     let getArea = function () {
         return "Ошибка! Треугольник не существует";
     }
-    let = getPerimeter = function () {
+    let getPerimeter = function () {
         return "Ошибка! Треугольник не существует";
     }
 
