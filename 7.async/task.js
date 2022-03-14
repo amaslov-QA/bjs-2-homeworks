@@ -39,11 +39,11 @@ class AlarmClock {
         checkClock = checkClock.bind(this);
 
         if (this.timerId === null) {
-            setInterval(() => {
+            this.timerId = setInterval(() => {
                 this.alarmCollection.forEach((item) => checkClock(item));
             }, 1000)
-        }
     }
+}
 
     stop() {
         if (this.timerId !== null) {
